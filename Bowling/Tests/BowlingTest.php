@@ -41,9 +41,9 @@ Class BowlingTest extends PHPUnit_Framework_TestCase
   function testOneStrike() {
     $this->pinsPerRollCalcualtor(10,1);  
     $this->pinsPerRollCalcualtor(3,1);
-    $this->pinsPerRollCalcualtor(4,18);
+    $this->pinsPerRollCalcualtor(4,17);
 
-    $this->assertEquals($this->game->score(), 89);
+    $this->assertEquals($this->game->score(), 88);
 
   } 
 }

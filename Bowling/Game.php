@@ -19,24 +19,54 @@ Class Game
   public function score()
   {
     $score = 0;
-    $rollNumber = 0;
+    $rollIndex = 0;
 
     for ($frame = 0; $frame<10; $frame++) {
 
       $frameScore = 0;
-      $frameScore += $this->rolls[$rollNumber];
-      $frameScore += $this->rolls[++$rollNumber];  
+      $bonus = 0;
+      if ($this->isStrike($rollIndex)) {
+       
+        $bonus = $this->bonusStrike($rollIndex);
+        $frameScore += $this->rolls[$rollIndex]; 
+      
+      } else {
 
-      $bonusSpare = $frameScore == 10 ? $this->rolls[$rollNumber+1] : 0; 
+        if ($this->isSpare($rollIndex)) {
+          $bonus = $this->bonusSpare($rollIndex);
+        }
 
-      $score += $frameScore + $bonusSpare;
+        $frameScore += $this->rolls[$rollIndex];
+        $frameScore += $this->rolls[++$rollIndex];
 
-      $rollNumber++;
+      }
+  
+      $score += $frameScore + $bonus . "\n";
+      $rollIndex++;
     }
 
     return $score;
 
   }
-}
 
+  private function isStrike($frame)
+  {
+    return ($this->rolls[$frame] == 10) ? TRUE : FALSE;
+  }
+
+  private function isSpare($frame)
+  {
+    return (($this->rolls[$frame] + $this->rolls[$frame+1]) == 10) ? TRUE : FALSE;
+  }
+
+  private function bonusStrike($frame)
+  {
+    return $this->rolls[$frame+1] + $this->rolls[$frame+2];
+  }
+
+  private function bonusSpare($frame)
+  {
+    return $this->rolls[$frame+2];
+  }
+}
 
