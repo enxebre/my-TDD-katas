@@ -41,7 +41,7 @@ Class Game
 
       }
   
-      $score += $frameScore + $bonus . "\n";
+      $score += $frameScore + $bonus;
       $rollIndex++;
     }
 
@@ -51,12 +51,12 @@ Class Game
 
   private function isStrike($frame)
   {
-    return ($this->rolls[$frame] == 10) ? TRUE : FALSE;
+    return ($this->rolls[$frame] == 10);
   }
 
   private function isSpare($frame)
   {
-    return (($this->rolls[$frame] + $this->rolls[$frame+1]) == 10) ? TRUE : FALSE;
+    return (($this->rolls[$frame] + $this->rolls[$frame+1]) == 10);
   }
 
   private function bonusStrike($frame)
